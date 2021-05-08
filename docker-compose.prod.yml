@@ -10,4 +10,12 @@ services:
         NODE_ENV: production
     environment: 
       - NODE_ENV=production
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
     command: node index.js
+  
+  mongo:
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
