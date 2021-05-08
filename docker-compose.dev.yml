@@ -1,0 +1,24 @@
+version: "3"
+services:
+  nginx:
+    ports:
+      - "3000:80"
+  node-app:
+    build: 
+      context: ./
+      args:
+        NODE_ENV: development
+   # stdin_open: true # docker run -i
+    tty: true        # docker run -t  #without it node colors package will not work
+    volumes:
+      - ./:/app:ro
+      - /app/node_modules
+    env_file:
+      - ./.env.development.local
+    command: npm run dev
+
+  # To access db container from our host on localhost:27018
+  mongo:
+    ports:
+      - "27018:27017"
+      
