@@ -13,7 +13,7 @@ services:
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
       - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
-    command: node index.js
+    command: node backend/server.js
   
   mongo:
     environment: 
