@@ -8,6 +8,7 @@ services:
       context: ./
       args:
         NODE_ENV: development
+    image: node-app-dev-image
    # stdin_open: true # docker run -i
     tty: true        # docker run -t  #without it node colors package will not work
     volumes:

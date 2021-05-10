@@ -8,7 +8,6 @@ services:
       - node-app
 
   node-app:
-    image: aimanzaheb/ecom-api-docker
     environment:
       - PORT=3000
     depends_on: 

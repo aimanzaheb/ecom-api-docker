@@ -8,6 +8,7 @@ services:
       context: ./
       args:
         NODE_ENV: production
+    image: aimanzaheb/ecom-api-docker
     environment: 
       - NODE_ENV=production
       - MONGO_URI=${MONGO_URI}
