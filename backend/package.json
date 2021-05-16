@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon backend/server",
-    "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "dev": "nodemon src/server",
+    "data:import": "node src/seeder",
+    "data:destroy": "node src/seeder -d"
   },
   "author": "Aiman",
   "license": "MIT",

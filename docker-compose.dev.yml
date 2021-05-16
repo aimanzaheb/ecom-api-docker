@@ -2,20 +2,37 @@ version: "3"
 services:
   nginx:
     ports:
-      - "3000:80"
+      - "8080:80"
+        
+  react-app:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      - PORT=3000
+      - CHOKIDAR_USEPOLLING=true #if issue on windows
+      - REACT_APP_HOMEPAGE_PRODUCT_HEADING=Latest Products #Prefix "REACT_APP" before env varibale name otherwise will not work in react src code
+    stdin_open: true # docker run -i #if issue on windows
+    tty: true 
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    command: bash -c "chmod a+x node_modules/.bin/react-scripts && npm run start"
+
   node-app:
     build: 
-      context: ./
       args:
-        NODE_ENV: development
+        IMAGE_ENV: development
     image: node-app-dev-image
    # stdin_open: true # docker run -i
     tty: true        # docker run -t  #without it node colors package will not work
     volumes:
-      - ./:/app:ro
+      - ./backend:/app:ro
       - /app/node_modules
     env_file:
-      - ./.env.development.local
+      - ./backend/.env.development.local
     command: npm run dev
 
   # To access db container from our host on localhost:27018

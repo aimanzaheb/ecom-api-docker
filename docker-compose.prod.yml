@@ -3,6 +3,15 @@ services:
   nginx:
     ports:
       - "80:80"
+
+
+  react-app:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        - REACT_APP_HOMEPAGE_PRODUCT_HEADING=Latest Products #not passed as env variable because of multi stage build. It will not work
+
   node-app:
     deploy:
       replicas: 8
@@ -12,16 +21,15 @@ services:
         parallelism: 2
         delay: 10s
     build: 
-      context: ./
       args:
-        NODE_ENV: production
+        IMAGE_ENV: production
     image: aimanzaheb/ecom-api-docker
     environment: 
       - NODE_ENV=production
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
       - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
-    command: node backend/server.js
+    command: node src/server.js
   
   mongo:
     environment: 

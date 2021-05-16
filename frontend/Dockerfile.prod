@@ -1,0 +1,20 @@
+#Stage 1
+FROM node:15 as builder
+LABEL version="1.0"
+LABEL description="React frontend for ecom API"
+WORKDIR /app
+COPY ["package.json", "./"]
+RUN npm install
+COPY ./ ./
+
+# we can access this variable using process.env in react source code
+ARG REACT_APP_HOMEPAGE_PRODUCT_HEADING
+ENV REACT_APP_HOMEPAGE_PRODUCT_HEADING $REACT_APP_HOMEPAGE_PRODUCT_HEADING
+RUN npm run build
+
+#Stage 2
+FROM nginx:stable-alpine
+
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html
+

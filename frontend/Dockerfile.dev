@@ -1,0 +1,15 @@
+FROM node:15
+
+LABEL version="1.0"
+LABEL description="React frontend for ecom API"
+
+WORKDIR /app
+COPY ["package.json", "./"]
+RUN npm install
+
+COPY ./ ./
+ENV PORT 3000 
+# we can overwrite env variable in compose file
+EXPOSE $PORT
+
+CMD ["npm", "start"]

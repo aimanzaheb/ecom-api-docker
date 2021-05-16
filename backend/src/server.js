@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json()) //middleware to except json data in req.body
 
 app.get('/api', (req, res) => {
-  res.send('API is running')
+  res.send('API is hosted using docker swarm!!!!!!!!!!!!!!!!!!!!!')
 })
 
 app.use('/api/products', productRoutes)
